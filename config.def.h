@@ -34,7 +34,7 @@ static const Rule rules[] = {
 	 *	WM_NAME(STRING) = title
 	 */
 	/* class      instance    title       tags mask     isfloating   monitor */
-	{ "Gimp",     NULL,       NULL,       0,            1,           -1 },
+	{ "Gimp",     NULL,       NULL,       0,            0,           -1 },
 	{ "Firefox",  NULL,       NULL,       1 << 8,       0,           -1 },
 };
 
@@ -66,14 +66,26 @@ static const Layout layouts[] = {
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
-static const char *termcmd[]  = { "alacritty", NULL };
-static const char *editorcmd[]= { "emacsclient", "-c", "-a", "emacs", NULL };
-static const char *fmcmd[]    = { "pcmanfm", NULL };
+static const char *termcmd[]    = { "alacritty", NULL };
+static const char *editorcmd[]  = { "emacsclient", "-c", "-a", "emacs", NULL };
+static const char *fmcmd[]      = { "pcmanfm", NULL };
+static const char *browsercmd[] = { "firefox", NULL };
+static const char *emailcmd[] = { "thunderbird", NULL };
+static const char *musiccmd[] = { "alacritty", "-e", "mocp", NULL };
+static const char *passcmd[] = { "passmenu", "-l", "30", NULL };
+static const char *typepasscmd[] = { "passmenu", "--type", "-l", "30", NULL };
+static const char *clipcmd[] = { "clipmenu", NULL };
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_F1,     spawn,          {.v = editorcmd } },
 	{ MODKEY,                       XK_F2,     spawn,          {.v = fmcmd } },
+	{ MODKEY,                       XK_F3,     spawn,          {.v = browsercmd } },
+	{ MODKEY,                       XK_F4,     spawn,          {.v = emailcmd } },
+	{ MODKEY,                       XK_F5,     spawn,          {.v = musiccmd } },
+	{ MODKEY,                       XK_F6,     spawn,          {.v = passcmd } },
+	{ MODKEY|ShiftMask,             XK_F6,     spawn,          {.v = typepasscmd } },
+	{ MODKEY,                       XK_F7,     spawn,          {.v = clipcmd } },
 	{ MODKEY,                       XK_d,      spawn,          {.v = dmenucmd } },
 	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
