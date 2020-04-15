@@ -59,7 +59,7 @@ static const Rule rules[] = {
 };
 
 /* layout(s) */
-static const float mfact     = 0.55; /* factor of master area size [0.05..0.95] */
+static const float mfact     = 0.50; /* factor of master area size [0.05..0.95] */
 static const int nmaster     = 1;    /* number of clients in master area */
 static const int resizehints = 1;    /* 1 means respect size hints in tiled resizals */
 
@@ -85,8 +85,11 @@ static const Layout layouts[] = {
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
+static const char *roficmd[]     = { "rofi", "-modi drun,run,ssh,window" , "-show", "drun", "-show-icons", NULL };
+static const char *rofipasscmd[] = { "rofi-pass", NULL };
+static const char *roficlipcmd[] = { "rofi", "-modi", "clipboard:greenclip print", "-show", "clipboard", NULL };
 static const char *dmenucmd[]    = { "dmenu_recency", "-l", "10", "-m", dmenumon, "-fn", dmenufont, "-nb", col_nord01, "-nf", col_nord05, "-sb", col_nord08, "-sf", col_nord00, NULL };
-static const char *termcmd[]     = { "alacritty", NULL };
+static const char *termcmd[]     = { "alacritty", "-e", "tmux", NULL };
 static const char *editorcmd[]   = { "emacsclient", "-c", "-a", "emacs", NULL };
 static const char *fmcmd[]       = { "pcmanfm", NULL };
 static const char *browsercmd[]  = { "firefox", NULL };
@@ -98,6 +101,7 @@ static const char *clipcmd[]     = { "clipmenu", "-m", dmenumon, "-fn", dmenufon
 static const char *brightness_inc[] = { "xbacklight", "-inc", "10", NULL };
 static const char *brightness_dec[] = { "xbacklight", "-dec", "10", NULL };
 static const char *screenlock[]  = { "i3lock", "-c" , "000000" , NULL };
+static const char *shutdowncmd[] = { "shutdown", "-h", "now" , NULL };
 
 #include <X11/XF86keysym.h>
 
@@ -108,10 +112,10 @@ static Key keys[] = {
 	{ MODKEY,                       XK_F3,     spawn,          {.v = browsercmd } },
 	{ MODKEY,                       XK_F4,     spawn,          {.v = emailcmd } },
 	{ MODKEY,                       XK_F5,     spawn,          {.v = musiccmd } },
-	{ MODKEY,                       XK_F6,     spawn,          {.v = passcmd } },
+	{ MODKEY,                       XK_F6,     spawn,          {.v = rofipasscmd } },
 	{ MODKEY|ShiftMask,             XK_F6,     spawn,          {.v = typepasscmd } },
-	{ MODKEY,                       XK_F7,     spawn,          {.v = clipcmd } },
-	{ MODKEY,                       XK_d,      spawn,          {.v = dmenucmd } },
+	{ MODKEY,                       XK_F7,     spawn,          {.v = roficlipcmd } },
+	{ MODKEY,                       XK_d,      spawn,          {.v = roficmd } },
 	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
@@ -149,7 +153,8 @@ static Key keys[] = {
 	TAGKEYS(                        XK_7,                      6)
 	TAGKEYS(                        XK_8,                      7)
 	TAGKEYS(                        XK_9,                      8)
-	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
+	{ MODKEY|ShiftMask,             XK_q,      spawn,          {.v = shutdowncmd} },
+  { MODKEY|ShiftMask,             XK_r,      quit,           {0} },
   { MODKEY|Mod1Mask,              XK_q,      spawn,          {.v = screenlock} },
   { 0,          XF86XK_MonBrightnessUp,      spawn,          {.v = brightness_inc} },
   { 0,          XF86XK_MonBrightnessDown,    spawn,          {.v = brightness_dec} },
