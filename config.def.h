@@ -1,3 +1,4 @@
+
 /* See LICENSE file for copyright and license details. */
 
 /* appearance */
@@ -21,6 +22,10 @@ static const char col_gray4[]       = "#eeeeee";
 static const char col_cyan[]        = "#005577";
 static const char col_orange[]      = "#ff9900";
 
+
+
+
+
 static const char col_nord00[]      = "#2e3440";
 static const char col_nord01[]      = "#3b4252";
 static const char col_nord02[]      = "#434c5e";
@@ -38,12 +43,20 @@ static const char col_nord13[]      = "#ebcb8b";
 static const char col_nord14[]      = "#a3be8c";
 static const char col_nord15[]      = "#b48ead";
 
+
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
-	[SchemeNorm] = { col_nord05, col_nord01, col_nord01 },
-	[SchemeSel]  = { col_nord00, col_nord08, col_nord08 },
+	[SchemeNorm] = { col_nord09, col_nord00, col_nord00 },
+	[SchemeSel]  = { col_nord05, col_nord03, col_nord03 },
   [SchemeHid]  = { col_nord09, col_nord00, col_nord01 },
 };
+
+/* static const char *colors[][3]      = { */
+/* 	/\*               fg         bg         border   *\/ */
+/* 	[SchemeNorm] = { col_nord05, col_nord01, col_nord01 }, */
+/* 	[SchemeSel]  = { col_nord00, col_nord08, col_nord08 }, */
+/*   [SchemeHid]  = { col_nord09, col_nord00, col_nord01 }, */
+/* }; */
 
 /* tagging */
 static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
@@ -120,6 +133,8 @@ static Key keys[] = {
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
+	{ MODKEY|ShiftMask,             XK_j,      rotatestack,    {.i = +1 } },
+	{ MODKEY|ShiftMask,             XK_k,      rotatestack,    {.i = -1 } },
 	{ MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },
 	{ MODKEY,                       XK_o,      incnmaster,     {.i = -1 } },
 	{ MODKEY,              XK_odiaeresis,      setmfact,       {.f = -0.05} },
