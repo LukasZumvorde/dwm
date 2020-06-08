@@ -5,6 +5,7 @@
 static const unsigned int borderpx  = 2;        /* border pixel of windows */
 static const unsigned int gappx     = 5;        /* gaps between windows */
 static const unsigned int snap      = 32;       /* snap pixel */
+static const int swallowfloating    = 0;        /* 1 means swallow floating windows by default */
 static const unsigned int systraypinning = 0;   /* 0: sloppy systray follows selected monitor, >0: pin systray to monitor X */
 static const unsigned int systrayspacing = 2;   /* systray spacing */
 static const int systraypinningfailfirst = 1;   /* 1: if pinning fails, display systray on the first monitor, False: display systray on the last monitor*/
@@ -66,9 +67,13 @@ static const Rule rules[] = {
 	 *	WM_CLASS(STRING) = instance, class
 	 *	WM_NAME(STRING) = title
 	 */
-	/* class      instance    title       tags mask     isfloating   monitor */
-	{ "Gimp",     NULL,       NULL,       0,            0,           -1 },
-	{ "Firefox",  NULL,       NULL,       1 << 8,       0,           -1 },
+  /* class     instance  title           tags mask  isfloating  isterminal  noswallow  monitor */
+	{ "Gimp",    NULL,     NULL,           0,         1,          0,           0,        -1 },
+	{ "Firefox", NULL,     NULL,           1 << 8,    0,          0,          -1,        -1 },
+	{ "st",      NULL,     NULL,           0,         0,          1,          -1,        -1 },
+	{ "Alacritty", NULL,   NULL,           0,         0,          1,          -1,        -1 },
+	{ "urxvt",   NULL,     NULL,           0,         0,          1,          -1,        -1 },
+	{ NULL,      NULL,     "Event Tester", 0,         1,          0,           1,        -1 }, /* xev */
 };
 
 /* layout(s) */
@@ -102,15 +107,15 @@ static const char *roficmd[]     = { "rofi", "-modi drun,run,ssh,window" , "-sho
 static const char *rofipasscmd[] = { "rofi-pass", NULL };
 static const char *roficlipcmd[] = { "rofi", "-modi", "clipboard:greenclip print", "-show", "clipboard", NULL };
 static const char *dmenucmd[]    = { "dmenu_recency", "-l", "10", "-m", dmenumon, "-fn", dmenufont, "-nb", col_nord01, "-nf", col_nord05, "-sb", col_nord08, "-sf", col_nord00, NULL };
-static const char *termcmd[]     = { "alacritty", "-e", "tmux", NULL };
+static const char *termcmd[]     = { "alacritty", NULL };
 static const char *editorcmd[]   = { "emacsclient", "-c", "-a", "emacs", NULL };
 static const char *fmcmd[]       = { "pcmanfm", NULL };
 static const char *browsercmd[]  = { "firefox", NULL };
 static const char *emailcmd[]    = { "thunderbird", NULL };
 static const char *musiccmd[]    = { "alacritty", "-e", "mocp", NULL };
-static const char *passcmd[]     = { "passmenu", "-l", "30", "-m", dmenumon, "-fn", dmenufont, "-nb", col_nord01, "-nf", col_nord05, "-sb", col_nord08, "-sf", col_nord00, NULL };
+// static const char *passcmd[]     = { "passmenu", "-l", "30", "-m", dmenumon, "-fn", dmenufont, "-nb", col_nord01, "-nf", col_nord05, "-sb", col_nord08, "-sf", col_nord00, NULL };
 static const char *typepasscmd[] = { "passmenu", "--type", "-l", "30", "-m", dmenumon, "-fn", dmenufont, "-nb", col_nord01, "-nf", col_nord05, "-sb", col_nord08, "-sf", col_nord00, NULL };
-static const char *clipcmd[]     = { "clipmenu", "-m", dmenumon, "-fn", dmenufont, "-nb", col_nord01, "-nf", col_nord05, "-sb", col_nord08, "-sf", col_nord00, NULL };
+// static const char *clipcmd[]     = { "clipmenu", "-m", dmenumon, "-fn", dmenufont, "-nb", col_nord01, "-nf", col_nord05, "-sb", col_nord08, "-sf", col_nord00, NULL };
 static const char *brightness_inc[] = { "xbacklight", "-inc", "10", NULL };
 static const char *brightness_dec[] = { "xbacklight", "-dec", "10", NULL };
 static const char *screenlock[]  = { "i3lock", "-c" , "000000" , NULL };
@@ -129,7 +134,7 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_F6,     spawn,          {.v = typepasscmd } },
 	{ MODKEY,                       XK_F7,     spawn,          {.v = roficlipcmd } },
 	{ MODKEY,                       XK_d,      spawn,          {.v = roficmd } },
-	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
+	{ MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
@@ -139,7 +144,7 @@ static Key keys[] = {
 	{ MODKEY,                       XK_o,      incnmaster,     {.i = -1 } },
 	{ MODKEY,              XK_odiaeresis,      setmfact,       {.f = -0.05} },
 	{ MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
-	{ MODKEY,                       XK_Return, zoom,           {0} },
+	{ MODKEY|ShiftMask,             XK_Return, zoom,           {0} },
 	{ MODKEY,                       XK_Tab,    view,           {0} },
 	{ MODKEY,                       XK_c,      killclient,     {0} },
 	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
