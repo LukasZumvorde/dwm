@@ -48,7 +48,7 @@ static const char col_nord15[]      = "#b48ead";
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
 	[SchemeNorm] = { col_nord09, col_nord00, col_nord00 },
-	[SchemeSel]  = { col_nord05, col_nord03, col_nord03 },
+	[SchemeSel]  = { col_nord05, col_nord03, col_nord12 },
   [SchemeHid]  = { col_nord09, col_nord00, col_nord01 },
 };
 
@@ -148,10 +148,10 @@ static Key keys[] = {
 	{ MODKEY,                       XK_Tab,    view,           {0} },
 	{ MODKEY,                       XK_c,      killclient,     {0} },
 	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
-	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[2]} },
+	//{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[2]} },
 	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[1]} },
-  { MODKEY|ShiftMask,             XK_m,      setlayout,      {.v = &layouts[3]} },
-  { MODKEY,                       XK_u,      setlayout,      {.v = &layouts[4]} },
+  //{ MODKEY|ShiftMask,             XK_m,      setlayout,      {.v = &layouts[3]} },
+  //{ MODKEY,                       XK_u,      setlayout,      {.v = &layouts[4]} },
 	{ MODKEY,                       XK_space,  setlayout,      {0} },
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
 	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
