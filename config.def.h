@@ -115,10 +115,10 @@ static const char *emailcmd[]    = { "thunderbird", NULL };
 static const char *musiccmd[]    = { "alacritty", "-e", "mocp", NULL };
 static const char *passcmd[]     = { "passmenu", "-l", "30", "-m", dmenumon, NULL };
 static const char *typepasscmd[] = { "passmenu", "--type", "-l", "30", "-m", dmenumon, NULL };
-// static const char *clipcmd[]     = { "clipmenu", "-m", dmenumon, NULL };
+static const char *clipcmd[]     = { "clipmenu", "-m", dmenumon, NULL };
 static const char *brightness_inc[] = { "xbacklight", "-inc", "10", NULL };
 static const char *brightness_dec[] = { "xbacklight", "-dec", "10", NULL };
-static const char *screenlock[]  = { "i3lock", "-c" , "000000" , NULL };
+// static const char *screenlock[]  = { "i3lock", "-c" , "000000" , NULL };
 static const char *suspendcmd[] = { "xfce4-session-logout", "--suspend" , NULL };
 static const char *shutdowncmd[] = { "xfce4-session-logout", "--halt" , NULL };
 
