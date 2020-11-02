@@ -179,7 +179,7 @@ static Key keys[] = {
   TAGKEYS(                        XK_8,                      7)
   TAGKEYS(                        XK_9,                      8)
   { MODKEY|ShiftMask,             XK_q,      spawn,          {.v = shutdowncmd} },
-  { MODKEY|ShiftMask,             XK_r,      quit,           {0} },
+  /* { MODKEY|ShiftMask,             XK_r,      quit,           {0} }, */
   { MODKEY|Mod1Mask,              XK_q,      spawn,          {.v = suspendcmd} },
   { 0,          XF86XK_MonBrightnessUp,      spawn,          {.v = brightness_inc} },
   { 0,          XF86XK_MonBrightnessDown,    spawn,          {.v = brightness_dec} },
